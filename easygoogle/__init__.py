@@ -117,6 +117,81 @@ class GoogleAPI():
         ##TODO: Fill out
         pass
 
+    def replace_spreadsheet_with_csv(self, spreadsheet_id, csv_file_location, input_type='USER_ENTERED', tab_index=None,
+                                     tab_name=None):
+        """
+        First clears the specified sheet (tab-supported by name or index), then uploads the CSV contents to the default
+        "A1" range.
+        :param spreadsheet_id: Google Sheets File ID
+        :param csv_file_location: Location of the CSV file to upload and replace the existing sheet with
+        :param input_type: Any of the known INPUT_TYPE_CONSTANTS; determines if values should be interpreted or raw
+        :param tab_index: Optional tab index if the target is not the first tab/sheet
+        :param tab_name: Optioanl tab name if the target is not the first tab/sheet
+        :return:
+        """
+        # first clear the spreadsheet
+        self.clear_spreadsheet(spreadsheet_id=spreadsheet_id, tab_index=tab_index, tab_name=tab_name)
+
+        # now upload this sheet
+        return self.append_file_to_spreadsheet(spreadsheet_id=spreadsheet_id, csv_file=csv_file_location, tab_name=tab_name,
+                                               tab_index=tab_index, input_type=input_type)
+
+    def replace_spreadsheet_with_rows(self, spreadsheet_id, row_data, input_type='USER_ENTERED', tab_index=None,
+                                      tab_name=None):
+        """
+        First clears the specified sheet (tab-supported by name or index), then uploads the row data to the default
+        "A1" range.
+        :param spreadsheet_id: Google Sheets File ID
+        :param row_data: List of rows (lists) containing data to upload
+        :param input_type: Any of the known INPUT_TYPE_CONSTANTS; determines if values should be interpreted or raw
+        :param tab_index: Optional tab index if the target is not the first tab/sheet
+        :param tab_name: Optioanl tab name if the target is not the first tab/sheet
+        :return:
+        """
+        # first clear the spreadsheet
+        self.clear_spreadsheet(spreadsheet_id=spreadsheet_id, tab_index=tab_index, tab_name=tab_name)
+
+        # now upload this sheet
+        return self.append_rows_to_spreadsheet(spreadsheet_id=spreadsheet_id, row_data=row_data, tab_name=tab_name,
+                                               tab_index=tab_index, input_type=input_type)
+
+
+    def clear_spreadsheet(self, spreadsheet_id, tab_index=None, tab_name=None):
+        """
+        Clears a specific spreadsheet tab.  If no tab is specified, the first tab/sheet is cleared.
+        NOTE: Cell formatting is preserved in this function.
+        :param spreadsheet_id: Google Sheets File ID
+        :param tab_index: which tab by index to clear.  Default to the first tab (0).
+        :param tab_name: which tab by name to clear.  Default to the first tab.
+        :return:
+        """
+        doc = self.sheet_service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
+        sheets = [s['properties'] for s in doc['sheets']]
+        sheet = sheets[0]
+        if tab_index:
+            sheet = sheets[tab_index]
+        if tab_name:
+            for tab in sheets:
+                if tab['title'] == tab_name:
+                    sheet = tab
+
+        requests = []
+        requests.append({
+            "updateCells": {
+                "range": {
+                    "sheetId": sheet['sheetId']
+                },
+                'fields': 'userEnteredValue'
+            }
+        })
+
+        body = {
+            'requests': requests
+        }
+        response = self.sheet_service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id,
+                                                                 body=body).execute()
+        return response
+
     def download_spreadsheet(self, spreadsheet_id, format, tab_index=None, tab_name=None):
         """
         Fetches the given Google Sheet in the given format as a io.ByteIO object.  USE THIS if you want to download
@@ -351,8 +426,8 @@ class GoogleAPI():
 
         return parents['parents']
 
-    def append_rows_to_sheet(self, spreadsheet_id, row_data, tab_name='', starting_range='A1',
-                             input_type='USER_ENTERED'):
+    def append_rows_to_spreadsheet(self, spreadsheet_id, row_data, tab_name=None, tab_index=None, starting_range='A1',
+                                   input_type='USER_ENTERED'):
         """
         Takes raw row data and appends it to the bottom of a Google Sheet.
         :param spreadsheet_id: File ID of the spreadsheet work book
@@ -360,6 +435,7 @@ class GoogleAPI():
                             would be two rows with 1 and 2 in columns A and B, and a second row with 3 and 4 in columns
                             A and B.
         :param tab_name: If you want to append to a different tab than the first/default, specify the tab name here.
+        :param tab_index: If you want to append toa  different tab by index, you can specify that index here.
         :param starting_range: Where to start the insertions.  Default is A1 to specify the append to occur at the last
                                 known row, starting in column A.
         :param input_type: Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
@@ -371,8 +447,18 @@ class GoogleAPI():
         }
 
         range = starting_range
-        if tab_name != '':
-            range = tab_name+'!'+range
+
+        doc = self.sheet_service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
+        sheets = [s['properties'] for s in doc['sheets']]
+        sheet = sheets[0]
+        if tab_index:
+            sheet = sheets[tab_index]
+        if tab_name:
+            for tab in sheets:
+                if tab['title'] == tab_name:
+                    sheet = tab
+
+        range = sheet['title']+'!'+range
 
         # NOTES:
         #   - 'range': Start with the sheet's title to specify which sheet/tab to write these values to, followed by
@@ -391,13 +477,14 @@ class GoogleAPI():
                                                                      body=body).execute()
         return response
 
-    def append_file_to_sheet(self, spreadsheet_id, csv_file, tab_name='', starting_range='A1',
-                             input_type='USER_ENTERED'):
+    def append_file_to_spreadsheet(self, spreadsheet_id, csv_file, tab_name=None, tab_index=None, starting_range='A1',
+                                   input_type='USER_ENTERED'):
         """
          Takes raw row data and appends it to the bottom of a Google Sheet.
         :param spreadsheet_id: File ID of the spreadsheet work book
         :param csv_file: File containing the row data you want to upload.
         :param tab_name: If you want to append to a different tab than the first/default, specify the tab name here.
+        :param tab_index: If you want to append toa  different tab by index, you can specify that index here.
         :param starting_range: Where to start the insertions.  Default is A1 to specify the append to occur at the last
                                 known row, starting in column A.
         :param input_type: Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
@@ -410,8 +497,8 @@ class GoogleAPI():
         for row in csv_reader:
             row_data.append(row)
 
-        return self.append_rows_to_sheet(spreadsheet_id=spreadsheet_id, row_data=row_data, tab_name=tab_name,
-                                         starting_range=starting_range, input_type=input_type)
+        return self.append_rows_to_spreadsheet(spreadsheet_id=spreadsheet_id, row_data=row_data, tab_name=tab_name,
+                                               starting_range=starting_range, input_type=input_type, tab_index=tab_index)
 
 """
 CONSTANTS that can be used throughout various functions

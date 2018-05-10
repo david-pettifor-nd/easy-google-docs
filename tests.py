@@ -141,18 +141,58 @@ class GoogleAPIAuthTestCase(unittest.TestCase):
     #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
     #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
     #
-    #     response = api.append_rows_to_sheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', row_data=[[1, 2], [3, 4]])
+    #     response = api.append_rows_to_spreadsheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', row_data=[[1, 2], [3, 4]])
     #     self.assertEquals(response['updates']['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
 
-    def test_append_csv_to_sheet(self):
+    # def test_append_csv_to_sheet(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.append_file_to_spreadsheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                         csv_file='/home/parallels/Desktop/upload_test.csv')
+    #     self.assertEquals(response['updates']['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    # def test_clear_sheet_by_tab_name(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.clear_spreadsheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                      tab_name='Errors')
+    #     self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    # def test_clear_sheet_by_tab_index(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.clear_spreadsheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                      tab_index=1)
+    #     self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    # def test_replace_sheet_with_csv(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.replace_spreadsheet_with_csv(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                                 tab_index=1, csv_file_location='/home/parallels/Desktop/upload_test.csv')
+    #     self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    def test_replace_sheet_with_rows(self):
         parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         credentials_file = os.path.join(parent_dir, 'service_credentials.json')
         api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
         api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
-        response = api.append_file_to_sheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
-                                            csv_file='/home/parallels/Desktop/upload_test.csv')
-        self.assertEquals(response['updates']['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+        response = api.replace_spreadsheet_with_rows(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+                                                     tab_index=1, row_data=[['Hello', 'there!'], ['Its-a', 'me,', 'Mario!']])
+        self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
 
 if __name__ == '__main__':
     unittest.main()
