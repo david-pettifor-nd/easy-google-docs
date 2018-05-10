@@ -95,45 +95,64 @@ class GoogleAPIAuthTestCase(unittest.TestCase):
     #     response = api.delete_file(file_id=file_meta['id'])
     #     self.assertTrue(response)
 
-    def test_download_spreadsheet_csv(self):
+    # def test_download_spreadsheet_csv(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_CSV, tab_index=1)
+    #     self.assertTrue(os.path.exists(file_location))
+    #     os.remove(file_location)
+    #
+    # def test_download_spreadsheet_excel(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_MS_EXCEL)
+    #     self.assertTrue(os.path.exists(file_location))
+    #     os.remove(file_location)
+    #
+    # def test_download_spreadsheet_pdf(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_PDF)
+    #     self.assertTrue(os.path.exists(file_location))
+    #     os.remove(file_location)
+    #
+    # def test_download_spreadsheet_html(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_HTML)
+    #     self.assertTrue(os.path.exists(file_location))
+    #     os.remove(file_location)
+
+    # def test_append_data_to_sheet(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.append_rows_to_sheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', row_data=[[1, 2], [3, 4]])
+    #     self.assertEquals(response['updates']['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    def test_append_csv_to_sheet(self):
         parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         credentials_file = os.path.join(parent_dir, 'service_credentials.json')
         api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
         api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
-        file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_CSV, tab_index=1)
-        self.assertTrue(os.path.exists(file_location))
-        os.remove(file_location)
-
-    def test_download_spreadsheet_excel(self):
-        parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        credentials_file = os.path.join(parent_dir, 'service_credentials.json')
-        api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
-        api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
-
-        file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_MS_EXCEL)
-        self.assertTrue(os.path.exists(file_location))
-        os.remove(file_location)
-
-    def test_download_spreadsheet_pdf(self):
-        parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        credentials_file = os.path.join(parent_dir, 'service_credentials.json')
-        api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
-        api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
-
-        file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_PDF)
-        self.assertTrue(os.path.exists(file_location))
-        os.remove(file_location)
-
-    def test_download_spreadsheet_html(self):
-        parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        credentials_file = os.path.join(parent_dir, 'service_credentials.json')
-        api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
-        api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
-
-        file_location = api.download_spreadsheet_to_file(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', download_location='/home/parallels/Desktop/', format=FORMAT_HTML)
-        self.assertTrue(os.path.exists(file_location))
-        os.remove(file_location)
+        response = api.append_file_to_sheet(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+                                            csv_file='/home/parallels/Desktop/upload_test.csv')
+        self.assertEquals(response['updates']['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
 
 if __name__ == '__main__':
     unittest.main()

@@ -351,6 +351,67 @@ class GoogleAPI():
 
         return parents['parents']
 
+    def append_rows_to_sheet(self, spreadsheet_id, row_data, tab_name='', starting_range='A1',
+                             input_type='USER_ENTERED'):
+        """
+        Takes raw row data and appends it to the bottom of a Google Sheet.
+        :param spreadsheet_id: File ID of the spreadsheet work book
+        :param row_data: A list of rows such that each row consists of a list of values.  Example: [[1, 2], [3, 4]]
+                            would be two rows with 1 and 2 in columns A and B, and a second row with 3 and 4 in columns
+                            A and B.
+        :param tab_name: If you want to append to a different tab than the first/default, specify the tab name here.
+        :param starting_range: Where to start the insertions.  Default is A1 to specify the append to occur at the last
+                                known row, starting in column A.
+        :param input_type: Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
+                            interpreted (as for example, dates, dollars, etc.) or left as "Raw"
+        :return: Response from append call
+        """
+        body = {
+            'values': row_data
+        }
+
+        range = starting_range
+        if tab_name != '':
+            range = tab_name+'!'+range
+
+        # NOTES:
+        #   - 'range': Start with the sheet's title to specify which sheet/tab to write these values to, followed by
+        #       a '!', and then the starting cell ('A1' for the top-left cell).  Leave as 'A1' for default sheet/tab
+        #       (first one).
+        #   - 'valueInputOption': 'RAW' forces it to not interpret the text you insert.
+        #       See: https://developers.google.com/sheets/api/reference/rest/v4/ValueInputOption
+        #   - 'insertDataOption': 'INSERT_ROWS' forces it to append to the bottom of the table.  You can also
+        #       'OVERWRITE' which essentially is just a write command. It is safe to leave the `range` set to 'A1'
+        #        if this is set to 'INSERT_ROWS' verses 'OVERWRITE'.
+        # See: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append#InsertDataOption
+        response = self.sheet_service.spreadsheets().values().append(spreadsheetId=spreadsheet_id,
+                                                                     range=range,
+                                                                     valueInputOption=input_type,
+                                                                     insertDataOption='INSERT_ROWS',
+                                                                     body=body).execute()
+        return response
+
+    def append_file_to_sheet(self, spreadsheet_id, csv_file, tab_name='', starting_range='A1',
+                             input_type='USER_ENTERED'):
+        """
+         Takes raw row data and appends it to the bottom of a Google Sheet.
+        :param spreadsheet_id: File ID of the spreadsheet work book
+        :param csv_file: File containing the row data you want to upload.
+        :param tab_name: If you want to append to a different tab than the first/default, specify the tab name here.
+        :param starting_range: Where to start the insertions.  Default is A1 to specify the append to occur at the last
+                                known row, starting in column A.
+        :param input_type: Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
+                            interpreted (as for example, dates, dollars, etc.) or left as "Raw"
+        :return: Response from append call
+        """
+        row_data = []
+        fin = open(csv_file, 'r')
+        csv_reader = csv.reader(fin)
+        for row in csv_reader:
+            row_data.append(row)
+
+        return self.append_rows_to_sheet(spreadsheet_id=spreadsheet_id, row_data=row_data, tab_name=tab_name,
+                                         starting_range=starting_range, input_type=input_type)
 
 """
 CONSTANTS that can be used throughout various functions
@@ -368,3 +429,7 @@ FORMAT_PDF = 'application/pdf'
 FORMAT_CSV = 'text/csv'
 FORMAT_TSV = 'text/tab-separated-values'
 FORMAT_HTML = 'application/zip'
+
+# Interpretations for data insertion into sheets
+INPUT_TYPE_RAW = 'RAW'
+INPUT_TYPE_AUTO = 'USER_ENTERED'
