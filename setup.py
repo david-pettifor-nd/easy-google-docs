@@ -29,7 +29,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name='friendly-google-api',  # Required
+    name='easy-google-api',  # Required
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -122,7 +122,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=["friendly-google-api"],  # Required
+    packages=["easygoogle"],  # Required
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -184,9 +184,9 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/david-pettifor-nd/friendly-google-api/issues',
+        'Bug Reports': 'https://github.com/david-pettifor-nd/easy-google-api/issues',
         # 'Funding': 'https://donate.pypi.org',
         # 'Say Thanks!': 'http://saythanks.io/to/example',
-        'Source': 'https://github.com/david-pettifor-nd/friendly-google-api',
+        'Source': 'https://github.com/david-pettifor-nd/easy-google-api',
     },
 )
