@@ -80,7 +80,7 @@ file.
 7. Keep this JSON file someplace secret!  It will be needed to use this API.
 
 ###### Service-Account
-1. On the "Create Service Account" page ([https://console.cloud.google.com/apis/credentials/serviceaccountkey]), 
+1. On the "Create Service Account" page [https://console.cloud.google.com/apis/credentials/serviceaccountkey], 
 select "New Service Account" under "Service Account".
 2. Give your service account a name ('myserviceaccount').
 3. Under "Role", select "Service Accounts" -> "Service Account Admin"
