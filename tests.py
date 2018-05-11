@@ -1,7 +1,7 @@
 import unittest
 import os
-from easygoogle import GoogleAPI, BROWSER_FIREFOX, AUTH_TYPE_BROWSER, AUTH_TYPE_SERVICE_ACCOUNT, FORMAT_CSV, \
-    FORMAT_MS_EXCEL, FORMAT_PDF, FORMAT_HTML
+from easygoogledocs import GoogleAPI, BROWSER_FIREFOX, AUTH_TYPE_BROWSER, AUTH_TYPE_SERVICE_ACCOUNT, FORMAT_CSV, \
+    FORMAT_MS_EXCEL, FORMAT_PDF, FORMAT_HTML, PERMISSION_WRITE, PERMISSION_OWNER
 
 
 class GoogleAPIAuthTestCase(unittest.TestCase):
@@ -184,15 +184,64 @@ class GoogleAPIAuthTestCase(unittest.TestCase):
     #                                                 tab_index=1, csv_file_location='/home/parallels/Desktop/upload_test.csv')
     #     self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
 
-    def test_replace_sheet_with_rows(self):
+    # def test_replace_sheet_with_rows(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.replace_spreadsheet_with_rows(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                                  tab_index=1, row_data=[['Hello', 'there!'], ['Its-a', 'me,', 'Mario!']])
+    #     self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+
+    # def test_share_document(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     # response = api.share_document(file_id='14g7YzOCslT2rZKeJ6JxE3JmrpnNJ7AtFtWCtDKM53YY',
+    #     #                               recipient_email='dpettifo@nd.edu')
+    #     # self.assertIn('id', response)
+    #
+    #     # response = api.share_document(file_id='14g7YzOCslT2rZKeJ6JxE3JmrpnNJ7AtFtWCtDKM53YY',
+    #     #                               recipient_email='dpettifo@nd.edu', share_permissions=PERMISSION_WRITE)
+    #     # self.assertIn('id', response)
+    #     response = api.share_document(file_id='14g7YzOCslT2rZKeJ6JxE3JmrpnNJ7AtFtWCtDKM53YY',
+    #                                   recipient_email='noctemowl@gmail.com', share_permissions=PERMISSION_OWNER)
+    #     self.assertIn('id', response)
+
+    # def test_delete_file(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     response = api.delete_file(file_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+    #     self.assertTrue(response)
+
+    # def test_transfer_ownership(self):
+    #     parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    #     credentials_file = os.path.join(parent_dir, 'service_credentials.json')
+    #     api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
+    #     api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
+    #
+    #     permissions = api.revoke_permissions(file_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                          user_email='dpettifo@nd.edu')
+    #     print(permissions)
+    #     response = api.share_document(file_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
+    #                                   recipient_email='dpettifo@nd.edu')
+    #     self.assertTrue(response)
+
+    def test_revoke_share(self):
         parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         credentials_file = os.path.join(parent_dir, 'service_credentials.json')
         api = GoogleAPI(credentials_file=credentials_file, enable_drive=True, enable_sheets=True)
         api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
-        response = api.replace_spreadsheet_with_rows(spreadsheet_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk',
-                                                     tab_index=1, row_data=[['Hello', 'there!'], ['Its-a', 'me,', 'Mario!']])
-        self.assertEquals(response['spreadsheetId'], '1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk')
+        response = api.revoke_permissions(file_id='1J-pqwboTrt6PWiQSOJrM3qvT9xCxqpnqaSVcf5AUfuk', user_email='dpettifo@nd.edu')
+    #     self.assertEqual(response[0]['emailAddress'], 'dpettifo@nd.edu')
+
 
 if __name__ == '__main__':
     unittest.main()

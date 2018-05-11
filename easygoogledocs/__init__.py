@@ -2,19 +2,21 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client.service_account import ServiceAccountCredentials
 import webbrowser
-import httplib2
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from googleapiclient import errors as googleapierrors
 import io
 import csv
 import os
 import xlrd
+import json
 
 
-class GoogleAPI():
+class GoogleAPI:
 
     def __init__(self, credentials_file=None, enable_drive=True, enable_sheets=True):
         self.CREDENTIALS = credentials_file
+        self.auth_type = None
+        self.service_email = None
 
         self.drive_service = None
         self.sheet_service = None
@@ -31,7 +33,8 @@ class GoogleAPI():
 
         # make sure drive is enabled if sheets is enabled
         if self.sheets_enabled and not self.drive_enabled:
-            raise AttributeError("Many functions for Sheets require support from the Drive API.  Please enable the Drive feature if you want to use Sheets.")
+            raise AttributeError("Many functions for Sheets require support from the Drive API.  Please enable the "
+                                 "Drive feature if you want to use Sheets.")
 
     def authorize(self, authentication_type=None, browser=None):
         """
@@ -46,7 +49,7 @@ class GoogleAPI():
             raise FileNotFoundError('No credentials file has been set.  See: \n\t'
                                     'https://cloud.google.com/genomics/downloading-credentials-for-api-access\n'
                                     'for instructions on how to obtain this file. ')
-
+        credentials = None
         if authentication_type == 'web':
             flow = client.flow_from_clientsecrets(
                 self.CREDENTIALS,
@@ -71,8 +74,15 @@ class GoogleAPI():
             credentials = ServiceAccountCredentials.from_json_keyfile_name(
                 self.CREDENTIALS, scopes=SCOPES)
 
+            creds = open(self.CREDENTIALS, 'r')
+            cred_obj = json.load(creds)
+            creds.close()
+            self.service_email = cred_obj['client_email']
+
         if authentication_type != 'web' and authentication_type != 'service_account':
             raise AttributeError('Unsupported authentication type: `' + authentication_type + '`')
+
+        self.auth_type = authentication_type
 
         # is drive enabled?
         if self.drive_enabled:
@@ -113,9 +123,94 @@ class GoogleAPI():
         return True
 
 
-    def create_spreadsheet(self):
-        ##TODO: Fill out
-        pass
+    # def create_spreadsheet(self):
+    #     ##TODO: Fill out
+    #     pass
+
+    def revoke_permissions(self, file_id, user_email):
+        """
+        Removes all permissions/sharing for the given file from the email address specified.
+        :param file_id: File ID of the file to revoke permissions for.
+        :param user_email: Email address of the user to revoke.
+        :return: List of permissions it revoked (email/permission ID)
+        """
+        # first get a list of permissions for this file
+        permissions = self.get_file_permissions(file_id=file_id)
+        permissions_removed = []
+        for permission in permissions:
+            if permission['emailAddress'] == user_email:
+                self.drive_service.permissions().delete(fileId=file_id, permissionId=permission['id']).execute()
+                permissions_removed.append(permission)
+        return permissions_removed
+
+    def share_document(self, file_id, recipient_email, share_permissions='reader'):
+        """
+        Shares a file with the user specified email address to have access defined by the share_permissions attribute
+        :param file_id: File ID you want to share
+        :param recipient_email: Email address of the user you want to share with
+        :param share_permissions: Any of the known PERMISSION_CONSTANTS of reader/writer/owner.
+        :return: True if the share was successful
+        """
+        batch = self.drive_service.new_batch_http_request()
+        user_permission = {}
+        if share_permissions == 'reader' or share_permissions == 'writer':
+            user_permission = {
+                'type': 'user',
+                'role': share_permissions,
+                'emailAddress': recipient_email
+            }
+            create = self.drive_service.permissions().create(
+                fileId=file_id,
+                body=user_permission,
+                fields='id'
+            )
+        else:
+            user_permission = {
+                'type': 'user',
+                'role': 'owner',
+                'transferOwnership': True,
+                'emailAddress': recipient_email
+            }
+            create = self.drive_service.permissions().create(
+                fileId=file_id,
+                body=user_permission,
+                transferOwnership=True,
+                fields='id'
+            )
+        response = None
+        try:
+            response = create.execute()
+        except googleapierrors.HttpError as e:
+            print("=====")
+            print(e.content)
+            if e.resp.status == 404 and self.auth_type == 'service_account':
+                raise FileNotFoundError("The service account you are authorizing as could not find the file.  "
+                                        "It is likely "
+                                        "you have not shared the file with the service account.\nPlease be sure to "
+                                        "share "
+                                        "the file with the service account email: " + self.service_email)
+            if e.resp.status == 403 and self.auth_type == 'service_account':
+                raise PermissionError("You cannot transfer ownership using this service account before first setting "
+                                      "the service account to the owner of the document.  \nPlease manually set the "
+                                      "owner of this file to the service account email: "+self.service_email)
+            if e.resp.status == 400:
+                raise PermissionError("Looks like you're trying to transfer ownership to another domain, and sadly, "
+                                      "Google won't let you do that. Boo... :(")
+        return response
+
+    def get_file_permissions(self, file_id):
+        """
+        Returns a list of all permissions on the given File ID
+        :param file_id: File ID you want to get the permissions for.
+        :return: List of permissions as JSON object.
+        """
+        permissions = self.drive_service.permissions().list(fileId=file_id).execute()['permissions']
+        permission_list = []
+        for permission in permissions:
+            permission_list.append(self.drive_service.permissions().get(fileId=file_id, permissionId=permission['id'],
+                                                                        fields='emailAddress, id').execute())
+
+        return permission_list
 
     def replace_spreadsheet_with_csv(self, spreadsheet_id, csv_file_location, input_type='USER_ENTERED', tab_index=None,
                                      tab_name=None):
@@ -520,3 +615,8 @@ FORMAT_HTML = 'application/zip'
 # Interpretations for data insertion into sheets
 INPUT_TYPE_RAW = 'RAW'
 INPUT_TYPE_AUTO = 'USER_ENTERED'
+
+# Levels of sharing permissions
+PERMISSION_READ = 'reader'
+PERMISSION_WRITE = 'writer'
+PERMISSION_OWNER = 'owner'

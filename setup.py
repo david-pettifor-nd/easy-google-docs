@@ -29,7 +29,7 @@ setup(
     # There are some restrictions on what makes a valid project name
     # specification here:
     # https://packaging.python.org/specifications/core-metadata/#name
-    name='easy-google-api',  # Required
+    name='easy-google-docs',  # Required
 
     # Versions should comply with PEP 440:
     # https://www.python.org/dev/peps/pep-0440/
@@ -42,7 +42,8 @@ setup(
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description='Additional functionality for the google-api-python-client',  # Required
+    description='Additional functionality for the google-api-python-client '
+                'centered around Google Docs and Google Sheets',  # Required
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
@@ -70,7 +71,7 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/david-pettifor-nd/friendly-google-api',  # Optional
+    url='https://github.com/david-pettifor-nd/friendly-google-docs',  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
@@ -122,7 +123,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=["easygoogle"],  # Required
+    packages=["easygoogledocs"],  # Required
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -130,7 +131,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['google-api-python-client', 'xlrd', 'csv'],  # Optional
+    install_requires=['google-api-python-client', 'xlrd', 'csv', 'webbrowser'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -184,9 +185,9 @@ setup(
     # maintainers, and where to support the project financially. The key is
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
-        'Bug Reports': 'https://github.com/david-pettifor-nd/easy-google-api/issues',
+        'Bug Reports': 'https://github.com/david-pettifor-nd/easy-google-docs/issues',
         # 'Funding': 'https://donate.pypi.org',
         # 'Say Thanks!': 'http://saythanks.io/to/example',
-        'Source': 'https://github.com/david-pettifor-nd/easy-google-api',
+        'Source': 'https://github.com/david-pettifor-nd/easy-google-docs',
     },
 )
