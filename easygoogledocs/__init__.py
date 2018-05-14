@@ -13,10 +13,15 @@ import json
 
 class GoogleAPI:
 
-    def __init__(self, credentials_file=None, enable_drive=True, enable_sheets=True):
+    def __init__(self, credentials_file=None, enable_drive=True, enable_sheets=True, auto_ownership=False, default_owner_email=''):
         self.CREDENTIALS = credentials_file
         self.auth_type = None
         self.service_email = None
+
+        # if the authentication type is a service account, allow the user to specify if
+        #   we should automatically make them the owner of every file we upload
+        self.auto_owner = auto_ownership
+        self.default_owner_email = default_owner_email
 
         self.drive_service = None
         self.sheet_service = None
@@ -44,7 +49,6 @@ class GoogleAPI:
                         If not passed in, the system default will be used.
         :return: True if all enabled drives are authenticated.  False if an error occurs.
         """
-        # check to make sure we have credentials
         if not self.CREDENTIALS:
             raise FileNotFoundError('No credentials file has been set.  See: \n\t'
                                     'https://cloud.google.com/genomics/downloading-credentials-for-api-access\n'
@@ -428,7 +432,7 @@ class GoogleAPI:
         return self.upload_file(document_location, parent_id=parent_id,
                                 mime_type='application/vnd.google-apps.document')
 
-    def delete_spreadsheet(self, spreadsheet_id=None,):
+    def delete_spreadsheet(self, spreadsheet_id=None):
         """
         Deletes a spreadsheet file by calling the "delete_file" function and passing the ID along.
         :param spreadsheet_id: File ID of the spreadsheet (specified as "spreadsheetID" in the spreadsheet object)
@@ -457,6 +461,13 @@ class GoogleAPI:
             file_metadata['parents'] = [parent_folder_id]
 
         file = self.drive_service.files().create(body=file_metadata).execute()
+
+        # if this is a service account and auto-ownership is True
+        if self.auth_type == 'service_account' and self.auto_owner:
+            # move ownership to the default email
+            if self.default_owner_email == '':
+                raise AttributeError("No default owner email was set.  Cannot change ownership!")
+            self.share_document(file_id=file['id'], recipient_email=self.default_owner_email, share_permissions='owner')
         return file
 
     def delete_file(self, file_id=None):
@@ -501,6 +512,13 @@ class GoogleAPI:
         media = MediaFileUpload(file_location)
         file = self.drive_service.files().create(body=file_metadata,
                                                  media_body=media).execute()
+
+        # if this is a service account and auto-ownership is True
+        if self.auth_type == 'service_account' and self.auto_owner:
+            # move ownership to the default email
+            if self.default_owner_email == '':
+                raise AttributeError("No default owner email was set.  Cannot change ownership!")
+            self.share_document(file_id=file['id'], recipient_email=self.default_owner_email, share_permissions='owner')
         return file
 
     def get_parent_ids(self, file_id):
