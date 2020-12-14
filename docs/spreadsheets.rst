@@ -201,7 +201,7 @@ You can append to a spreadsheet (bottom of the table) with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Append the CSV "data.csv" to the second tab of the sheet "XXXXXXXXXXXXXXXXXX"
     api.append_rows_to_spreadsheet(spreadsheet_id = 'XXXXXXXXXXXXXXXXXX' csv_file='data.csv', tab_index=1)

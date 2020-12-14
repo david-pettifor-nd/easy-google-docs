@@ -12,7 +12,7 @@ You can easily upload a file with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Upload the file "MyFinalPaper.docx" to my root drive folder:
     file_meta = api.upload_document(document_location="MyFinalPaper.docx")
@@ -30,7 +30,7 @@ Or if you want to upload specifically to Google Sheets::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Upload the file "Expenses.xlsx" to my root drive folder:
     file_meta = api.upload_spreadsheet(document_location="Expenses.xlsx")
@@ -50,7 +50,7 @@ You can upload a file and specify which mime-type the file is if you would rathe
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Upload the file "leafy_autumn.jpg" to my root drive folder:
     file_meta = api.upload_file(document_location="leafy_autumn.jpg", mime_type='application/vnd.google-apps.photo')

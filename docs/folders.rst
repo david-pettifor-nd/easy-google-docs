@@ -15,7 +15,7 @@ To create a folder::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Create a folder named "My Stuff":
     mystuff_meta = api.create_folder(folder_name='My Stuff')

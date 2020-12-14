@@ -10,7 +10,7 @@ You can delete any file from Google Drive so long as you know the File ID::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Delete the file "budget1999.xlsx", which has a file ID of "XXXXXXXXXXXXXXXXXX":
     api.delete_file(file_id='XXXXXXXXXXXXXXXXXX')
@@ -25,7 +25,7 @@ There is also one for spreadsheets, which does nothing more than call the above 
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Delete the file "budget1999.xlsx", which has a file ID of "XXXXXXXXXXXXXXXXXX":
     api.delete_spreadsheet(spreadsheet_id='XXXXXXXXXXXXXXXXXX')

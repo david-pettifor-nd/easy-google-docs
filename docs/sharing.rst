@@ -19,7 +19,7 @@ You can share a file with a specific user (knowing their email address) as read-
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # share with "johndoe@gmail.com":
     api.share_document(file_id='XXXXXXXXXXXXXXXXXX', recipient_email='johndoe@gmail.com', share_permissions=PERMISSION_READ)
@@ -39,7 +39,7 @@ You can also give a person permission to make changes to your document with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # share with "johndoe@gmail.com":
     api.share_document(file_id='XXXXXXXXXXXXXXXXXX', recipient_email='johndoe@gmail.com', share_permissions=PERMISSION_WRITE)
@@ -59,7 +59,7 @@ You can give ownership to a file to a specific user (but it *must* be within the
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # move ownership to "johndoe@gmail.com":
     api.share_document(file_id='XXXXXXXXXXXXXXXXXX', recipient_email='johndoe@gmail.com', share_permissions=PERMISSION_OWNER)
@@ -91,7 +91,7 @@ You can revoke access from a user to a specific file with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Revoke permission for "johndoe@gmail.com" from accessing the file
     api.revoke_permission(file_id='XXXXXXXXXXXXXXXXXX', user_emal='johndoe@gmail.com')
