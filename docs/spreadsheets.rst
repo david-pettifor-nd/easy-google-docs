@@ -29,7 +29,7 @@ You can download the entire file as a MS Excel Spreadsheet File::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Download the spreadsheet with a File ID "XXXXXXXXXXXXXXXXXX" to the Desktop
     file_path = api.download_spreadsheet_to_file(spreadsheet_id='XXXXXXXXXXXXXXXXXX', download_location='~/Desktop/', format=FORMAT_MS_EXCEL)
@@ -47,7 +47,7 @@ Sometimes we only one a single sheet/tab of our workbook, especially when we're 
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Download the second tab/sheet of the spreadsheet with a File ID "XXXXXXXXXXXXXXXXXX" to the Desktop
     file_path = api.download_spreadsheet_to_file(spreadsheet_id='XXXXXXXXXXXXXXXXXX', download_location='~/Desktop/', format=FORMAT_CSV, tab_index=1)
@@ -67,7 +67,7 @@ If you would rather get the data from your spreadsheet into memory-only (and avo
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Download the second tab/sheet of the spreadsheet with a File ID "XXXXXXXXXXXXXXXXXX" to memory (returns a io.ByteIO object
     sheet_data = api.download_spreadsheet(spreadsheet_id='XXXXXXXXXXXXXXXXXX', format=FORMAT_CSV, tab_index=1)
@@ -87,7 +87,7 @@ If you want to clear the contents of a specific tab/sheet of a spreadsheet, this
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Clear the contents of the second tab/sheet:
     api.clear_spreadsheet(spreadsheet_id='XXXXXXXXXXXXXXXXXX', tab_index=1)
@@ -113,7 +113,7 @@ If you have row data as a 2-dimensional array (a list of lists...the first list 
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Example of what your row data could look like:
     row_data = [
@@ -138,7 +138,7 @@ Or sometimes you may just have a CSV file you want to replace the sheet with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Replace the second tab with the CSV file on our desktop:
     api.replace_spreadsheet_with_csv(spread_sheet_id='XXXXXXXXXXXXXXXXXX', csv_file_location='~/Desktop/data.csv', tab_index=1)
@@ -164,7 +164,7 @@ You can append to a spreadsheet (bottom of the table) with::
     api.authorize(authentication_type=AUTH_TYPE_BROWSER)
 
     # To authorize with a service account:
-    api.authorize(authentication_type=AUTH_TYPE_BROWSER)
+    api.authorize(authentication_type=AUTH_TYPE_SERVICE_ACCOUNT)
 
     # Example of what your row data may look like:
     row_data = [
