@@ -357,7 +357,7 @@ class GoogleAPI:
 
         output_file = os.path.join(download_location, self.get_file_name(file_id=spreadsheet_id))
         # is the format TSV or CSV and a tab indicator given?
-        if (format == FORMAT_CSV or format == FORMAT_TSV) and (tab_index or tab_name):
+        if (format == FORMAT_CSV or format == FORMAT_TSV) and (tab_index != None or tab_name):
             fh = self.download_spreadsheet(spreadsheet_id=spreadsheet_id, format=FORMAT_MS_EXCEL, tab_index=tab_index,
                                            tab_name=tab_name)
             workbook = xlrd.open_workbook(file_contents=fh.read())
