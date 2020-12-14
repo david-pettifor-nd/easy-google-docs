@@ -7,7 +7,7 @@ from googleapiclient import errors as googleapierrors
 import io
 import csv
 import os
-import xlrd
+import openpyxl
 import json
 
 
@@ -329,16 +329,24 @@ class GoogleAPI:
             # print "Download %d%%." % int(status.progress() * 100)
         fh.seek(0)
 
-        if (format == FORMAT_CSV or format == FORMAT_TSV) and (tab_index or tab_name):
-            workbook = xlrd.open_workbook(file_contents=fh.read())
+        if (format == FORMAT_CSV or format == FORMAT_TSV) and (tab_index != None or tab_name):
+            workbook = openpyxl.load_workbook(filename=fh)
             wb_sheet = None
-            if tab_index:
-                wb_sheet = workbook.sheet_by_index(tab_index)
-            else:
-                wb_sheet = workbook.sheet_by_name(tab_name)
+            if tab_index != None:
+                wb_sheet = workbook.worksheets[tab_index]
+            if tab_name != None:
+                wb_sheet = workbook[tab_name]
+            
+            # default to tab zero (first sheet)
+            if tab_name is None and tab_index is None:
+                wb_sheet = workbook.worksheets[0]
+
             csv_bytes = io.BytesIO()
-            for r in range(wb_sheet.nrows):
-                csv_bytes.write(wb_sheet.row_values(r))
+            for row in wb_sheet.iter_rows():
+                csv_row = []
+                for cell in row:
+                    csv_row.append(cell.value)
+                csv_bytes.write(csv_row)
             return csv_bytes
         else:
             return fh
@@ -360,17 +368,20 @@ class GoogleAPI:
         if (format == FORMAT_CSV or format == FORMAT_TSV) and (tab_index != None or tab_name):
             fh = self.download_spreadsheet(spreadsheet_id=spreadsheet_id, format=FORMAT_MS_EXCEL, tab_index=tab_index,
                                            tab_name=tab_name)
-            workbook = xlrd.open_workbook(file_contents=fh.read())
+            workbook = openpyxl.load_workbook(filename=fh)
             wb_sheet = None
-            if tab_index:
-                wb_sheet = workbook.sheet_by_index(tab_index)
+            if tab_index != None:
+                wb_sheet = workbook.worksheets[tab_index]
             else:
-                wb_sheet = workbook.sheet_by_name(tab_name)
-
+                wb_sheet = workbook[tab_name]
+            
             csv_file = open(os.path.join(download_location, os.path.basename(output_file)+'.csv'), 'w')
             csv_writer = csv.writer(csv_file)
-            for r in range(wb_sheet.nrows):
-                csv_writer.writerow(wb_sheet.row_values(r))
+            for row in wb_sheet.iter_rows():
+                csv_row = []
+                for cell in row:
+                    csv_row.append(cell.value)
+                csv_writer.writerow(csv_row)
             csv_file.close()
 
             output_file = os.path.join(download_location, os.path.basename(output_file)+'.csv')
