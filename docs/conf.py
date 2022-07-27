@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = 'easy-google-docs'
-copyright = '2018, David W Pettifor'
+copyright = '2018, 2022 David W Pettifor'
 author = 'David W Pettifor'
 
 # The short X.Y version
-version = ''
+version = '0.2'
 # The full version, including alpha/beta/rc tags
-release = '0.0.2'
+release = '0.2.3'
 
 
 # -- General configuration ---------------------------------------------------

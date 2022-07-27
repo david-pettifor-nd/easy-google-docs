@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Easy Google Docs &mdash; easy-google-docs 0.2.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Google APIs and Account Authentication Types" href="authentication.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> easy-google-docs
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Google APIs and Account Authentication Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading.html">Uploading Documents to Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreadsheets.html">Spreadsheets (Google Sheets)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">GoogleAPI Code Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">easy-google-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Easy Google Docs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="easy-google-docs">
+<h1>Easy Google Docs<a class="headerlink" href="#easy-google-docs" title="Permalink to this heading"></a></h1>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this heading"></a></h2>
+<p>Install with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">easy</span><span class="o">-</span><span class="n">google</span><span class="o">-</span><span class="n">docs</span>
+</pre></div>
+</div>
+<p>Import with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span>
+</pre></div>
+</div>
+<p>Authorize with either web-browser-based authentication:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">AUTH_TYPE_BROWSER</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;oauth_credentials.json&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or authorize with a service account:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;service_account_credentials.json&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Google APIs and Account Authentication Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#web-based-authentication">Web-Based Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#service-account-authentication">Service-Account Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#steps-to-get-started">Steps to Get Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="authentication.html#create-a-project">Create A Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.html#enable-apis">Enable APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.html#create-credentials">Create Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.html#oauth-client-web-browser-based-authentication">OAuth Client (Web Browser-based Authentication)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="authentication.html#service-account">Service-Account</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="initialization.html#importing-and-authentication">Importing and authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="initialization.html#using-json-file">Using JSON File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initialization.html#using-json-object">Using JSON Object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uploading.html">Uploading Documents to Drive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uploading.html#specifying-mimetypes">Specifying Mimetypes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="uploading.html#supported-mime-types">Supported Mime-Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="folders.html#creating-folders">Creating Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="folders.html#creating-sub-folders">Creating Sub-folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="folders.html#getting-parent-folder-information">Getting Parent Folder Information:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spreadsheets.html">Spreadsheets (Google Sheets)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spreadsheets.html#downloading-exporting-spreadsheets">Downloading/Exporting Spreadsheets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#download-as-excel-file">Download As Excel File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#download-specific-tab-as-csv">Download Specific Tab as CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#download-spreadsheet-in-memory">Download Spreadsheet in Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spreadsheets.html#clearing-spreadsheets">Clearing Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spreadsheets.html#replacing-spreadsheets-with-content">Replacing Spreadsheets with Content</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#replacing-with-raw-data">Replacing with Raw Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#replacing-with-csv">Replacing with CSV</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spreadsheets.html#appending-to-sheets">Appending to Sheets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#appending-raw-data-to-a-specific-spreadsheet-tab">Appending Raw Data to a Specific Spreadsheet Tab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spreadsheets.html#appending-a-csv-to-a-specific-spreadsheet-tab">Appending a CSV to a Specific Spreadsheet Tab</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#sharing-as-read-only">Sharing as Read-Only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#sharing-with-read-write">Sharing with Read/Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#changing-ownership">Changing Ownership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#service-account-ownership">Service Account Ownership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#revoking-access">Revoking Access</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="code-documentation">
+<h1>Code Documentation<a class="headerlink" href="#code-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">GoogleAPI Code Documentation</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="authentication.html" class="btn btn-neutral float-right" title="Google APIs and Account Authentication Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, 2022 David W Pettifor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

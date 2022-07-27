@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google APIs and Account Authentication Types &mdash; easy-google-docs 0.2.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation and Initialization" href="initialization.html" />
+    <link rel="prev" title="Easy Google Docs" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> easy-google-docs
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Google APIs and Account Authentication Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#web-based-authentication">Web-Based Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-account-authentication">Service-Account Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steps-to-get-started">Steps to Get Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-project">Create A Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-apis">Enable APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-credentials">Create Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oauth-client-web-browser-based-authentication">OAuth Client (Web Browser-based Authentication)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service-account">Service-Account</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading.html">Uploading Documents to Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreadsheets.html">Spreadsheets (Google Sheets)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">GoogleAPI Code Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">easy-google-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Google APIs and Account Authentication Types</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/authentication.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="google-apis-and-account-authentication-types">
+<h1>Google APIs and Account Authentication Types<a class="headerlink" href="#google-apis-and-account-authentication-types" title="Permalink to this heading"></a></h1>
+<p>There are two types of authentication methods you can use for Google API access:</p>
+<ul class="simple">
+<li><p>Web-based authentication (authenticates as _your_ account)</p></li>
+<li><p>Service-account authentication (allows for non-interfacing scripting)</p></li>
+</ul>
+<div class="section" id="web-based-authentication">
+<h2>Web-Based Authentication<a class="headerlink" href="#web-based-authentication" title="Permalink to this heading"></a></h2>
+<p>Pros:</p>
+<ul class="simple">
+<li><p>Everything you do will be done as <em>you</em> - no need to mess with permissions, etc.</p></li>
+<li><p>All files you upload will be to <em>your</em> drive space.</p></li>
+<li><p>More secure as you must authenticate as yourself every time the script runs</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Requires human-interface for authentication every time you authenticate</p></li>
+<li><p>Cannot automate script/run on GUI-less server</p></li>
+</ul>
+</div>
+<div class="section" id="service-account-authentication">
+<h2>Service-Account Authentication<a class="headerlink" href="#service-account-authentication" title="Permalink to this heading"></a></h2>
+<p>Pros:</p>
+<ul class="simple">
+<li><p><em>Can</em> automate scripts/requires no interfacing</p></li>
+<li><p>Gets its own drive space (also a <em>con</em>)</p></li>
+</ul>
+<p>Cons:</p>
+<ul class="simple">
+<li><p>Gets its own drive space - this means all files uploaded are to <em>this</em> account and not <em>yours</em>.  You then must share the file with yourself.</p></li>
+<li><p>All files existing in <em>your</em> drive space you want to work with must be shared with the service account before it can <em>see</em> them.</p></li>
+</ul>
+</div>
+<div class="section" id="steps-to-get-started">
+<h2>Steps to Get Started<a class="headerlink" href="#steps-to-get-started" title="Permalink to this heading"></a></h2>
+<div class="section" id="create-a-project">
+<h3>Create A Project<a class="headerlink" href="#create-a-project" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Go to your Google Console to create a new project: [<a class="reference external" href="https://console.cloud.google.com/projectcreate">https://console.cloud.google.com/projectcreate</a>]</p></li>
+<li><p>Give your project a name (‘Example Project’) and click “Create”</p></li>
+<li><p>You will be taken to the main dashboard [<a class="reference external" href="https://console.cloud.google.com/home/dashboard">https://console.cloud.google.com/home/dashboard</a>].</p></li>
+</ol>
+</div>
+<div class="section" id="enable-apis">
+<h3>Enable APIs<a class="headerlink" href="#enable-apis" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Go to the “Google Drive API” dashboard: [<a class="reference external" href="https://console.cloud.google.com/apis/library/drive.googleapis.com">https://console.cloud.google.com/apis/library/drive.googleapis.com</a>] Make sure your project (‘Example Project’) is selected in the drop-down menu at the top.</p></li>
+<li><p>Click “Enable”</p></li>
+<li><p>Go to the “Google Sheets API” dashboard: [<a class="reference external" href="https://console.cloud.google.com/apis/library/sheets.googleapis.com">https://console.cloud.google.com/apis/library/sheets.googleapis.com</a>] Make sure your project (‘Example Project’) is selected in the drop-down menu at the top.</p></li>
+<li><p>Click “Enable”</p></li>
+</ol>
+</div>
+<div class="section" id="create-credentials">
+<h3>Create Credentials<a class="headerlink" href="#create-credentials" title="Permalink to this heading"></a></h3>
+<p>Seriously consider what kind of authentication method you would like to use.  This will heavily depend on your project’s needs, and may mean more or less work in your code.</p>
+<ol class="arabic">
+<li><p>Go to [<a class="reference external" href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a>] to start creating credentials.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If you want to create a web-based authentication credential, select “OAuth client ID”.</p></li>
+<li><p>If you want to create a service-account credential, select “Service account key”</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="oauth-client-web-browser-based-authentication">
+<h3>OAuth Client (Web Browser-based Authentication)<a class="headerlink" href="#oauth-client-web-browser-based-authentication" title="Permalink to this heading"></a></h3>
+<p>1. If this is your first OAuth client for this project, you must configure the consent screen here:
+[<a class="reference external" href="https://console.cloud.google.com/apis/credentials/consent?createClient">https://console.cloud.google.com/apis/credentials/consent?createClient</a>]</p>
+<ol class="arabic simple" start="2">
+<li><p>Fill out the “Product name shown to users” field and click “Save”.</p></li>
+<li><p>This should take you back to the OAuth Client screen: [<a class="reference external" href="https://console.cloud.google.com/apis/credentials/oauthclient">https://console.cloud.google.com/apis/credentials/oauthclient</a>]</p></li>
+<li><p>Select “Other” and give it a name (example: “My Script”) and click “Create”</p></li>
+<li><p>Close the pop-up window that shows your “Client ID” and “Secret”</p></li>
+<li><p>On the far-right side of your new credential, click on the Download link to download your client credentails JSON file.</p></li>
+<li><p>Keep this JSON file someplace secret!  It will be needed to use this API.</p></li>
+</ol>
+</div>
+<div class="section" id="service-account">
+<h3>Service-Account<a class="headerlink" href="#service-account" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>On the “Create Service Account” page [<a class="reference external" href="https://console.cloud.google.com/apis/credentials/serviceaccountkey">https://console.cloud.google.com/apis/credentials/serviceaccountkey</a>], click “Create Service Account”.</p></li>
+<li><p>Give your service account a name (‘myserviceaccount’), verify the service account ID and copy the Email address generated under the service account ID field.  This will be the email address you share folders with.</p></li>
+<li><p>Click “Create and Continue”</p></li>
+<li><p>Under “Role”, select “Service Account Admin” and click “Done”.</p></li>
+<li><p>Click on the new service account email that now shows in the list, and click the “KEYS” tab.</p></li>
+<li><p>Click “ADD KEY” -&gt; “Create new key”.</p></li>
+<li><p>Make sure “JSON” is selected, and click “Create”.</p></li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>Save the returned credentials JSON file someplace safe!  It will be needed to use this API.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Easy Google Docs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="initialization.html" class="btn btn-neutral float-right" title="Installation and Initialization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, 2022 David W Pettifor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

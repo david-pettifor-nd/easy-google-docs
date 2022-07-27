@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoogleAPI Code Documentation &mdash; easy-google-docs 0.2.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Sharing" href="sharing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> easy-google-docs
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Google APIs and Account Authentication Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading.html">Uploading Documents to Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreadsheets.html">Spreadsheets (Google Sheets)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GoogleAPI Code Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">easy-google-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>GoogleAPI Code Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/code.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="googleapi-code-documentation">
+<h1>GoogleAPI Code Documentation<a class="headerlink" href="#googleapi-code-documentation" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">easygoogledocs.</span></span><span class="sig-name descname"><span class="pre">GoogleAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_drive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_sheets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_owner_email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.append_file_to_spreadsheet">
+<span class="sig-name descname"><span class="pre">append_file_to_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'A1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'USER_ENTERED'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.append_file_to_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Takes raw row data and appends it to the bottom of a Google Sheet.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spreadsheet_id</strong> – File ID of the spreadsheet work book</p></li>
+<li><p><strong>csv_file</strong> – File containing the row data you want to upload.</p></li>
+<li><p><strong>tab_name</strong> – If you want to append to a different tab than the first/default, specify the tab name here.</p></li>
+<li><p><strong>tab_index</strong> – If you want to append toa  different tab by index, you can specify that index here.</p></li>
+<li><p><strong>starting_range</strong> – Where to start the insertions.  Default is A1 to specify the append to occur at the last
+known row, starting in column A.</p></li>
+<li><p><strong>input_type</strong> – Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
+interpreted (as for example, dates, dollars, etc.) or left as “Raw”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response from append call</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.append_rows_to_spreadsheet">
+<span class="sig-name descname"><span class="pre">append_rows_to_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'A1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'USER_ENTERED'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.append_rows_to_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><p>Takes raw row data and appends it to the bottom of a Google Sheet.
+:param spreadsheet_id: File ID of the spreadsheet work book
+:param row_data: A list of rows such that each row consists of a list of values.  Example: [[1, 2], [3, 4]]</p>
+<blockquote>
+<div><p>would be two rows with 1 and 2 in columns A and B, and a second row with 3 and 4 in columns
+A and B.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tab_name</strong> – If you want to append to a different tab than the first/default, specify the tab name here.</p></li>
+<li><p><strong>tab_index</strong> – If you want to append toa  different tab by index, you can specify that index here.</p></li>
+<li><p><strong>starting_range</strong> – Where to start the insertions.  Default is A1 to specify the append to occur at the last
+known row, starting in column A.</p></li>
+<li><p><strong>input_type</strong> – Allows you to specify a known INPUT_TYPE_CONSTANT to decide if the values input should be
+interpreted (as for example, dates, dollars, etc.) or left as “Raw”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Response from append call</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.authorize">
+<span class="sig-name descname"><span class="pre">authorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">authentication_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">browser</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.authorize" title="Permalink to this definition"></a></dt>
+<dd><p>Makes an attempt to get authorization to the enabled Google APIs
+:param authentication_type: Can be ‘AUTH_TYPE_BROWSER’ or the string ‘web’, OR, ‘AUTH_TYPE_SERVICE_ACCOUNT’ or the string ‘service_account’
+:param browser: Can be ‘BROWSER_GOOGLE_CHROME’ or ‘BROWSER_FIREFOX’, or the strings ‘chrome’|’firefox’.</p>
+<blockquote>
+<div><p>If not passed in, the system default will be used.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if all enabled drives are authenticated.  False if an error occurs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.clear_spreadsheet">
+<span class="sig-name descname"><span class="pre">clear_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.clear_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><p>Clears a specific spreadsheet tab.  If no tab is specified, the first tab/sheet is cleared.
+NOTE: Cell formatting is preserved in this function.
+:param spreadsheet_id: Google Sheets File ID
+:param tab_index: which tab by index to clear.  Default to the first tab (0).
+:param tab_name: which tab by name to clear.  Default to the first tab.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.create_folder">
+<span class="sig-name descname"><span class="pre">create_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Unnamed</span> <span class="pre">Folder'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.create_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a folder of the name passed in.  If no parent folder ID is given, the folder will appear at the root of your Google Drive space.
+:param folder_name: Name of the folder you want to create.  If none is given, it will be called “Unnamed Folder”
+:param parent_folder_id: Optional parent folder ID.
+:return: Folder JSON Object meta data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.delete_file">
+<span class="sig-name descname"><span class="pre">delete_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.delete_file" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes the file of <cite>file_id</cite> from your Google Drive space.
+:param file_id: ID of the file you want to delete
+:return: True if the deletion is successful</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.delete_spreadsheet">
+<span class="sig-name descname"><span class="pre">delete_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.delete_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes a spreadsheet file by calling the “delete_file” function and passing the ID along.
+:param spreadsheet_id: File ID of the spreadsheet (specified as “spreadsheetID” in the spreadsheet object)
+:return: True if the file is deleted</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.download_spreadsheet">
+<span class="sig-name descname"><span class="pre">download_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.download_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches the given Google Sheet in the given format as a io.ByteIO object.  USE THIS if you want to download
+the sheet into memory (no need for writing to disk).
+:param spreadsheet_id: Google Sheets File ID
+:param format: One of the known FORMAT_CONTSTANTS to download it as.  Use the <cite>._get_format_extension()</cite></p>
+<blockquote>
+<div><p>function to determine appropriate extension of the given format.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tab_index</strong> – Only used if format is CSV or TSV - downloads the specific tab by index.</p></li>
+<li><p><strong>tab_name</strong> – Only used if format is CSV or TSV - downloads the specific tab by name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>io.BytesIO object containing file data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.download_spreadsheet_to_file">
+<span class="sig-name descname"><span class="pre">download_spreadsheet_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.download_spreadsheet_to_file" title="Permalink to this definition"></a></dt>
+<dd><p>Exports a given spreadsheet to the location specified.
+:param spreadsheet_id: File ID of the Google Sheet
+:param download_location: Where to save the file to.
+:param format: One of any known FORMAT_CONSTANTS.  File extension is derived from this.
+:param tab_index: Used only if exporting to CSV or TSV - defines which sheet/tab to download by sheet index.</p>
+<blockquote>
+<div><p>(Hint: 0 = first sheet, 1 = second sheet, etc.)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tab_name</strong> – Used only if exporting to CSV or TSV - defines which sheet/tab to download by sheet title.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File location of the downloaded file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.get_file_permissions">
+<span class="sig-name descname"><span class="pre">get_file_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.get_file_permissions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of all permissions on the given File ID
+:param file_id: File ID you want to get the permissions for.
+:return: List of permissions as JSON object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.get_parent_ids">
+<span class="sig-name descname"><span class="pre">get_parent_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.get_parent_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Returns back the parent IDs of the file ID passed in
+:param file_id: Which child file to look up.
+:return: List of parent folder IDs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.replace_spreadsheet_with_csv">
+<span class="sig-name descname"><span class="pre">replace_spreadsheet_with_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_file_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'USER_ENTERED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.replace_spreadsheet_with_csv" title="Permalink to this definition"></a></dt>
+<dd><p>First clears the specified sheet (tab-supported by name or index), then uploads the CSV contents to the default
+“A1” range.
+:param spreadsheet_id: Google Sheets File ID
+:param csv_file_location: Location of the CSV file to upload and replace the existing sheet with
+:param input_type: Any of the known INPUT_TYPE_CONSTANTS; determines if values should be interpreted or raw
+:param tab_index: Optional tab index if the target is not the first tab/sheet
+:param tab_name: Optioanl tab name if the target is not the first tab/sheet
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.replace_spreadsheet_with_rows">
+<span class="sig-name descname"><span class="pre">replace_spreadsheet_with_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'USER_ENTERED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tab_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.replace_spreadsheet_with_rows" title="Permalink to this definition"></a></dt>
+<dd><p>First clears the specified sheet (tab-supported by name or index), then uploads the row data to the default
+“A1” range.
+:param spreadsheet_id: Google Sheets File ID
+:param row_data: List of rows (lists) containing data to upload
+:param input_type: Any of the known INPUT_TYPE_CONSTANTS; determines if values should be interpreted or raw
+:param tab_index: Optional tab index if the target is not the first tab/sheet
+:param tab_name: Optioanl tab name if the target is not the first tab/sheet
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.revoke_permissions">
+<span class="sig-name descname"><span class="pre">revoke_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.revoke_permissions" title="Permalink to this definition"></a></dt>
+<dd><p>Removes all permissions/sharing for the given file from the email address specified.
+:param file_id: File ID of the file to revoke permissions for.
+:param user_email: Email address of the user to revoke.
+:return: List of permissions it revoked (email/permission ID)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.share_document">
+<span class="sig-name descname"><span class="pre">share_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipient_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">share_permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reader'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.share_document" title="Permalink to this definition"></a></dt>
+<dd><p>Shares a file with the user specified email address to have access defined by the share_permissions attribute
+:param file_id: File ID you want to share
+:param recipient_email: Email address of the user you want to share with
+:param share_permissions: Any of the known PERMISSION_CONSTANTS of reader/writer/owner.
+:return: True if the share was successful</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.upload_document">
+<span class="sig-name descname"><span class="pre">upload_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.upload_document" title="Permalink to this definition"></a></dt>
+<dd><p>Uploads a document file to Google Sheets.  This simply adds the appropirate “mime type” parameter to tell Google to put it in Sheets.
+See: <a class="reference external" href="https://developers.google.com/drive/v3/web/mime-types">https://developers.google.com/drive/v3/web/mime-types</a>
+:param document_location: Location of the document to upload
+:param parent_id: Optional parent folder ID
+:return: File object in JSON</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mime_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.upload_file" title="Permalink to this definition"></a></dt>
+<dd><p>Uploads a file to your Google Drive space.  If a parent ID is given, it will upload it to that folder.
+:param file_location: Local path of the file to upload.
+:param parent_id: Folder ID to upload the file to.  If none is given, it will upload it to the root Google Drive space.
+:param mime_type: A known mimeType for Google to use to convert an uploaded file to Docs, Sheets, or Slides.  See list of supported mimeTypes: <a class="reference external" href="https://developers.google.com/drive/v3/web/mime-types">https://developers.google.com/drive/v3/web/mime-types</a>
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygoogledocs.GoogleAPI.upload_spreadsheet">
+<span class="sig-name descname"><span class="pre">upload_spreadsheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spreadsheet_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygoogledocs.GoogleAPI.upload_spreadsheet" title="Permalink to this definition"></a></dt>
+<dd><p>Uploads a spreadsheet file to Google Sheets.  This simply adds the appropirate “mime type” parameter to tell Google to put it in Sheets.
+See: <a class="reference external" href="https://developers.google.com/drive/v3/web/mime-types">https://developers.google.com/drive/v3/web/mime-types</a>
+:param spreadsheet_location: Location of the spreadsheet to upload
+:param parent_id: Optional parent folder ID
+:return: File object in JSON</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sharing.html" class="btn btn-neutral float-left" title="Sharing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, 2022 David W Pettifor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

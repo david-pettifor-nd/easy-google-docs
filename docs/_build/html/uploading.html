@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uploading Documents to Drive &mdash; easy-google-docs 0.2.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deleting Files from Google Drive" href="deleting.html" />
+    <link rel="prev" title="Installation and Initialization" href="initialization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> easy-google-docs
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Google APIs and Account Authentication Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Uploading Documents to Drive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#specifying-mimetypes">Specifying Mimetypes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-mime-types">Supported Mime-Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spreadsheets.html">Spreadsheets (Google Sheets)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">GoogleAPI Code Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">easy-google-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Uploading Documents to Drive</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/uploading.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="uploading-documents-to-drive">
+<h1>Uploading Documents to Drive<a class="headerlink" href="#uploading-documents-to-drive" title="Permalink to this heading"></a></h1>
+<p>The document uploader will let Google try to figure out which kind of document it is.  For most cases, this will work fine.</p>
+<p>You can easily upload a file with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Upload the file &quot;MyFinalPaper.docx&quot; to my root drive folder:</span>
+<span class="n">file_meta</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">upload_document</span><span class="p">(</span><span class="n">document_location</span><span class="o">=</span><span class="s2">&quot;MyFinalPaper.docx&quot;</span><span class="p">)</span>
+
+<span class="c1"># Or if you want to upload it to a specific folder, you&#39;ll need to know the folder&#39;s ID:</span>
+<span class="n">file_meta</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">upload_document</span><span class="p">(</span><span class="n">document_location</span><span class="o">=</span><span class="s2">&quot;MyFinalPaper.docx&quot;</span><span class="p">,</span> <span class="n">parent_id</span><span class="o">=</span><span class="s1">&#39;FOLDER_ID&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or if you want to upload specifically to Google Sheets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Upload the file &quot;Expenses.xlsx&quot; to my root drive folder:</span>
+<span class="n">file_meta</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">upload_spreadsheet</span><span class="p">(</span><span class="n">document_location</span><span class="o">=</span><span class="s2">&quot;Expenses.xlsx&quot;</span><span class="p">)</span>
+
+<span class="c1"># Or if you want to upload it to a specific folder, you&#39;ll need to know the folder&#39;s ID:</span>
+<span class="n">file_meta</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">upload_spreadsheet</span><span class="p">(</span><span class="n">document_location</span><span class="o">=</span><span class="s2">&quot;Expenses.xlsx&quot;</span><span class="p">,</span> <span class="n">parent_id</span><span class="o">=</span><span class="s1">&#39;FOLDER_ID&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="specifying-mimetypes">
+<h2>Specifying Mimetypes<a class="headerlink" href="#specifying-mimetypes" title="Permalink to this heading"></a></h2>
+<p>You can upload a file and specify which mime-type the file is if you would rather not let Google try to figure it out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Upload the file &quot;leafy_autumn.jpg&quot; to my root drive folder:</span>
+<span class="n">file_meta</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">document_location</span><span class="o">=</span><span class="s2">&quot;leafy_autumn.jpg&quot;</span><span class="p">,</span> <span class="n">mime_type</span><span class="o">=</span><span class="s1">&#39;application/vnd.google-apps.photo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="supported-mime-types">
+<h3>Supported Mime-Types<a class="headerlink" href="#supported-mime-types" title="Permalink to this heading"></a></h3>
+<p>You can view a compelte list of supported mime-types (and where Google will default the opening application) at:</p>
+<p><a class="reference external" href="https://developers.google.com/drive/v3/web/mime-types">https://developers.google.com/drive/v3/web/mime-types</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="initialization.html" class="btn btn-neutral float-left" title="Installation and Initialization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deleting.html" class="btn btn-neutral float-right" title="Deleting Files from Google Drive" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, 2022 David W Pettifor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

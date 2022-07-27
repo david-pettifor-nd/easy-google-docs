@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: easy-google-docs
+Version: 0.2.3
+Summary: Additional functionality for the google-api-python-client centered around Google Docs and Google Sheets
+Home-page: https://github.com/david-pettifor-nd/easy-google-docs
+Author: David W Pettifor
+Author-email: David.W.Pettifor.1@nd.edu
+License: UNKNOWN
+Project-URL: Bug Reports, https://github.com/david-pettifor-nd/easy-google-docs/issues
+Project-URL: Source, https://github.com/david-pettifor-nd/easy-google-docs
+Description: UNKNOWN
+Keywords: google api sheets docs
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Description-Content-Type: text/markdown

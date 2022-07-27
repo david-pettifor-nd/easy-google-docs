@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spreadsheets (Google Sheets) &mdash; easy-google-docs 0.2.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sharing" href="sharing.html" />
+    <link rel="prev" title="Folders" href="folders.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> easy-google-docs
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Google APIs and Account Authentication Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Installation and Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading.html">Uploading Documents to Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deleting.html">Deleting Files from Google Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="folders.html">Folders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spreadsheets (Google Sheets)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-exporting-spreadsheets">Downloading/Exporting Spreadsheets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#download-as-excel-file">Download As Excel File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download-specific-tab-as-csv">Download Specific Tab as CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download-spreadsheet-in-memory">Download Spreadsheet in Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#clearing-spreadsheets">Clearing Spreadsheets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#replacing-spreadsheets-with-content">Replacing Spreadsheets with Content</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#replacing-with-raw-data">Replacing with Raw Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#replacing-with-csv">Replacing with CSV</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#appending-to-sheets">Appending to Sheets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#appending-raw-data-to-a-specific-spreadsheet-tab">Appending Raw Data to a Specific Spreadsheet Tab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#appending-a-csv-to-a-specific-spreadsheet-tab">Appending a CSV to a Specific Spreadsheet Tab</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Sharing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">GoogleAPI Code Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">easy-google-docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Spreadsheets (Google Sheets)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/spreadsheets.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="spreadsheets-google-sheets">
+<h1>Spreadsheets (Google Sheets)<a class="headerlink" href="#spreadsheets-google-sheets" title="Permalink to this heading"></a></h1>
+<div class="section" id="downloading-exporting-spreadsheets">
+<h2>Downloading/Exporting Spreadsheets<a class="headerlink" href="#downloading-exporting-spreadsheets" title="Permalink to this heading"></a></h2>
+<p>Exporting spreadsheets from Google Sheets is actually done through the Google Drive API (and not the Google Sheets API as one might expect).  Only two things are required for this:</p>
+<ul>
+<li><p>Spreadsheet ID (File ID)</p></li>
+<li><p>Format (which can be any of the following defined formats in this library):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>FORMAT_MS_EXCEL (format: ‘.xlsx’)</p></li>
+<li><p>FORMAT_OPEN_OFFICE_SHEET (format: ‘.ods’)</p></li>
+<li><p>FORMAT_PDF  (format: ‘.pdf’)</p></li>
+<li><p>FORMAT_CSV (format: ‘.csv’ - single sheet/tab only)</p></li>
+<li><p>FORMAT_TSV (format: ‘.tsv’ - single sheet/tab only)</p></li>
+<li><p>FORMAT_HTML (format: ‘.zip’ file of each sheet/tab as an HTML file/table)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="section" id="download-as-excel-file">
+<h3>Download As Excel File<a class="headerlink" href="#download-as-excel-file" title="Permalink to this heading"></a></h3>
+<p>You can download the entire file as a MS Excel Spreadsheet File:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">,</span> <span class="n">FORMAT_MS_EXCEL</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Download the spreadsheet with a File ID &quot;XXXXXXXXXXXXXXXXXX&quot; to the Desktop</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_spreadsheet_to_file</span><span class="p">(</span><span class="n">spreadsheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="n">download_location</span><span class="o">=</span><span class="s1">&#39;~/Desktop/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT_MS_EXCEL</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-specific-tab-as-csv">
+<h3>Download Specific Tab as CSV<a class="headerlink" href="#download-specific-tab-as-csv" title="Permalink to this heading"></a></h3>
+<p>Sometimes we only one a single sheet/tab of our workbook, especially when we’re downloading it as a CSV file.  You can do this by specifying either the tab index (0-based index, so “tab_index=0” is the first tab), or by the tab’s name.  Here, we download it by index:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">,</span> <span class="n">FORMAT_CSV</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Download the second tab/sheet of the spreadsheet with a File ID &quot;XXXXXXXXXXXXXXXXXX&quot; to the Desktop</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_spreadsheet_to_file</span><span class="p">(</span><span class="n">spreadsheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="n">download_location</span><span class="o">=</span><span class="s1">&#39;~/Desktop/&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT_CSV</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above code works around a bit of what the Google Drive API v3 supports (as they do not support exporting other tabs as CSV natively).  It actually downloads the file as an Excel file (to get all tabs), and uses the Python library <a class="reference external" href="https://github.com/python-excel/xlrd">xlrd</a> to extract the specified tab’s data (all in memory), then writes it to disk.</p>
+</div>
+<div class="section" id="download-spreadsheet-in-memory">
+<h3>Download Spreadsheet in Memory<a class="headerlink" href="#download-spreadsheet-in-memory" title="Permalink to this heading"></a></h3>
+<p>If you would rather get the data from your spreadsheet into memory-only (and avoid writing to disk immediately), you can:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">,</span> <span class="n">FORMAT_CSV</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Download the second tab/sheet of the spreadsheet with a File ID &quot;XXXXXXXXXXXXXXXXXX&quot; to memory (returns a io.ByteIO object</span>
+<span class="n">sheet_data</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FORMAT_CSV</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: the above function does support all export types, not just CSV!  Also, before returning, the ByteIO object returned is reset with <cite>.seek(0)</cite> so it is ready to be read at the beginning of the byte data.</p>
+</div>
+</div>
+<div class="section" id="clearing-spreadsheets">
+<h2>Clearing Spreadsheets<a class="headerlink" href="#clearing-spreadsheets" title="Permalink to this heading"></a></h2>
+<p>If you want to clear the contents of a specific tab/sheet of a spreadsheet, this can easily be done with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Clear the contents of the second tab/sheet:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">clear_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: this clears <em>only the contents</em> and not the formatting of each cell.  All cell formatting (Date/Dollars/Numeric formatting) will remain.</p>
+</div>
+<div class="section" id="replacing-spreadsheets-with-content">
+<h2>Replacing Spreadsheets with Content<a class="headerlink" href="#replacing-spreadsheets-with-content" title="Permalink to this heading"></a></h2>
+<p>Sometimes we have updates we want to push to a specific spreadsheet tab and it’s just easiest to replace the entire sheet’s tab
+with this new data.</p>
+<div class="section" id="replacing-with-raw-data">
+<h3>Replacing with Raw Data<a class="headerlink" href="#replacing-with-raw-data" title="Permalink to this heading"></a></h3>
+<p>If you have row data as a 2-dimensional array (a list of lists…the first list representing rows, each second list the column data):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Example of what your row data could look like:</span>
+<span class="n">row_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="s1">&#39;State&#39;</span><span class="p">],</span>   <span class="c1"># first row -- header</span>
+    <span class="p">[</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;123 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AL&#39;</span><span class="p">]</span>   <span class="c1"># second row</span>
+    <span class="p">[</span><span class="s1">&#39;Jane&#39;</span><span class="p">,</span> <span class="s1">&#39;456 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AK&#39;</span><span class="p">]</span>   <span class="c1"># third row</span>
+<span class="p">]</span>
+
+<span class="c1"># Replace the second tab with our row data:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">replace_spreadsheet_with_rows</span><span class="p">(</span><span class="n">spread_sheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="n">row_data</span><span class="o">=</span><span class="n">row_data</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="replacing-with-csv">
+<h3>Replacing with CSV<a class="headerlink" href="#replacing-with-csv" title="Permalink to this heading"></a></h3>
+<p>Or sometimes you may just have a CSV file you want to replace the sheet with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Replace the second tab with the CSV file on our desktop:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">replace_spreadsheet_with_csv</span><span class="p">(</span><span class="n">spread_sheet_id</span><span class="o">=</span><span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span><span class="p">,</span> <span class="n">csv_file_location</span><span class="o">=</span><span class="s1">&#39;~/Desktop/data.csv&#39;</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: for both _replacing_ functions, you can pass in an <em>input_type</em> parameter of:</p>
+<ul class="simple">
+<li><p>INPUT_TYPE_RAW - forces Google Sheets to not try to analyze the input (leaves formatting alone)</p></li>
+<li><p>INPUT_TYPE_AUTO - lets Google Sheets auto-format things like dates, decimals, etc.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="appending-to-sheets">
+<h2>Appending to Sheets<a class="headerlink" href="#appending-to-sheets" title="Permalink to this heading"></a></h2>
+<div class="section" id="appending-raw-data-to-a-specific-spreadsheet-tab">
+<h3>Appending Raw Data to a Specific Spreadsheet Tab<a class="headerlink" href="#appending-raw-data-to-a-specific-spreadsheet-tab" title="Permalink to this heading"></a></h3>
+<p>You can append to a spreadsheet (bottom of the table) with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Example of what your row data may look like:</span>
+<span class="n">row_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;123 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AL&#39;</span><span class="p">]</span>   <span class="c1"># first row to add</span>
+    <span class="p">[</span><span class="s1">&#39;Jane&#39;</span><span class="p">,</span> <span class="s1">&#39;456 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AK&#39;</span><span class="p">]</span>   <span class="c1"># second row to add</span>
+<span class="p">]</span>
+
+<span class="c1"># Append the row_data to the second tab of the sheet &quot;XXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">api</span><span class="o">.</span><span class="n">append_rows_to_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_id</span> <span class="o">=</span> <span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span> <span class="n">row_data</span><span class="o">=</span><span class="n">row_data</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to append to a sheet with a different starting column (default is <em>A1</em>), you can specify the starting range:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of what your row data may look like:</span>
+<span class="n">row_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;123 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AL&#39;</span><span class="p">]</span>   <span class="c1"># first row to add</span>
+    <span class="p">[</span><span class="s1">&#39;Jane&#39;</span><span class="p">,</span> <span class="s1">&#39;456 Fake Street&#39;</span><span class="p">,</span> <span class="s1">&#39;AK&#39;</span><span class="p">]</span>   <span class="c1"># second row to add</span>
+<span class="p">]</span>
+
+<span class="c1"># Append the row_data to the second tab of the sheet &quot;XXXXXXXXXXXXXXXXXX&quot; starting in the &quot;B&quot; column</span>
+<span class="n">api</span><span class="o">.</span><span class="n">append_rows_to_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_id</span> <span class="o">=</span> <span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span> <span class="n">row_data</span><span class="o">=</span><span class="n">row_data</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">starting_range</span><span class="o">=</span><span class="s1">&#39;B1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: we still use “x1” to define the starting range even though we are not actually starting at <em>Row 1</em>.  With the <em>append</em> function, it will always insert into the spreadsheet after the last row which contains data.</p>
+</div>
+<div class="section" id="appending-a-csv-to-a-specific-spreadsheet-tab">
+<h3>Appending a CSV to a Specific Spreadsheet Tab<a class="headerlink" href="#appending-a-csv-to-a-specific-spreadsheet-tab" title="Permalink to this heading"></a></h3>
+<p>You can append to a spreadsheet (bottom of the table) with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">easygoogledocs</span> <span class="kn">import</span> <span class="n">GoogleAPI</span><span class="p">,</span> <span class="n">AUTH_TYPE_BROWSER</span><span class="p">,</span> <span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">GoogleAPI</span><span class="p">(</span><span class="n">credentials_file</span><span class="o">=</span><span class="s1">&#39;credentials.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a web-browser based OAuth Token:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_BROWSER</span><span class="p">)</span>
+
+<span class="c1"># To authorize with a service account:</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">authentication_type</span><span class="o">=</span><span class="n">AUTH_TYPE_SERVICE_ACCOUNT</span><span class="p">)</span>
+
+<span class="c1"># Append the CSV &quot;data.csv&quot; to the second tab of the sheet &quot;XXXXXXXXXXXXXXXXXX&quot;</span>
+<span class="n">api</span><span class="o">.</span><span class="n">append_rows_to_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_id</span> <span class="o">=</span> <span class="s1">&#39;XXXXXXXXXXXXXXXXXX&#39;</span> <span class="n">csv_file</span><span class="o">=</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">tab_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: Both <em>append</em> functions also allow for <em>tab_name</em> to be used instead of <em>tab_index</em>.  Also, you can specify an <em>input_type</em> if you would rather the data be inserted as raw (INPUT_TYPE_RAW rather than the default INPUT_TYPE_AUTO)</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="folders.html" class="btn btn-neutral float-left" title="Folders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sharing.html" class="btn btn-neutral float-right" title="Sharing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, 2022 David W Pettifor.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
