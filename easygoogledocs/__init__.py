@@ -379,8 +379,12 @@ class GoogleAPI:
             else:
                 wb_sheet = workbook[tab_name]
             
-            csv_file = open(os.path.join(download_location, os.path.basename(output_file)+'.csv'), 'w')
-            csv_writer = csv.writer(csv_file)
+            if format == FORMAT_TSV:
+                csv_file = open(os.path.join(download_location, os.path.basename(output_file)+'.tsv'), 'w')
+                csv_writer = csv.writer(csv_file, delimiter='\t')
+            else:
+                csv_file = open(os.path.join(download_location, os.path.basename(output_file)+'.csv'), 'w')
+                csv_writer = csv.writer(csv_file)
             for row in wb_sheet.iter_rows():
                 csv_row = []
                 for cell in row:
